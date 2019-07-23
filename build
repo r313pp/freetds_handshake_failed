@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+
+docker build \
+    --rm \
+    --build-arg http_proxy \
+    --build-arg https_proxy \
+    --build-arg FREETDS_VERSION=${2:-1.1.11} \
+    --build-arg DEBIAN_VERSION=${1:-buster} \
+    -t freetds:${1:-buster} \
+    .
+

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+
+docker run \
+    --name freetds_${1:-buster} \
+    --rm \
+    -ti \
+    -v $(pwd)/test:/root/test \
+    -v $(pwd)/.freetds.conf:/root/.freetds.conf \
+    freetds:${1:-buster} \
+    "${@:2}"

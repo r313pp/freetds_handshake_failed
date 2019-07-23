@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "SELECT @@VERSION;" | tsql -oq "$@"
+
+# gather data
+tsql -C
+openssl version -a
+CIPHERS=$(sed -n 's/^[^;#]*openssl ciphers = \([A-Za-z0-9!:+-]\+\)/\1/p' $HOME/.freetds.conf)
+openssl ciphers -V ${CIPHERS:-'HIGH:!SSLv2:!aNULL:-DH'}
+cat /tmp/freetds.log
